@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {GameOver, SquareValue, WINNING_SEQUENCES} from './models';
 
 
@@ -16,17 +16,24 @@ export class EndgameService {
     };
   }
 
-  // is draw - true if no player will be able to win this match
+  // is draw - true if no player will be able to win this match - match should be stopped
   private isDraw(board: Array<number>): boolean {
-    // every line has both X and O
+    // every sequence has both X and O
     return WINNING_SEQUENCES.every(
       (seq: number[]) => {
         return seq.some((n: number) => board[n] === SquareValue.X) &&
         seq.some((m: number) => board[m] === SquareValue.O)
-      }) || // only one line left and it WILL contain both X and O
+      }) || // or the one free sequence left will necessarily contain both X and O
         (board.filter((square: number) => square === SquareValue.Empty).length <= 2 &&
           WINNING_SEQUENCES.some((seq: number[]) =>
-            board.filter((square, index) => seq.includes(index) && square === SquareValue.Empty).length >= 2));
+            this.howManyOfTypeInSequence(board, seq, SquareValue.Empty) >= 2) &&
+            // and there is more then one step to complete victory in every sequence
+          !(WINNING_SEQUENCES.some((seq: number[]) =>
+            this.howManyOfTypeInSequence(board, seq, SquareValue.Empty) === 1 &&
+            (this.howManyOfTypeInSequence(board, seq, SquareValue.X) === 2 ||
+            this.howManyOfTypeInSequence(board, seq, SquareValue.O) === 2)
+          ))
+        );
   }
 
   // checks if the current player just won and returns the winning sequence indexes if so
@@ -39,5 +46,9 @@ export class EndgameService {
       }
     });
     return winningSequence;
+  }
+
+  private howManyOfTypeInSequence(board: Array<number>, sequence: Array<number>, value: SquareValue) {
+    return board.filter((square, index) => sequence.includes(index) && square === value).length;
   }
 }
