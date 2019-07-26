@@ -17,7 +17,7 @@ function EmptyBoard() {
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
-  public title = 'Tic Tac Too';
+  public title = 'Tic Tac Toe';
   players: Array<string>;
   public currPlayerIdx = 0;
   public winner = Winner.Empty;
