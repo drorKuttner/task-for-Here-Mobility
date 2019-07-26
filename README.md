@@ -1,5 +1,5 @@
 
-To install the project please with node run:
+To install the project with node please run:
 ```bash
 npm install
 ```
