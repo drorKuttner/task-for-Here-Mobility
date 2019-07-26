@@ -1,0 +1,36 @@
+.root {
+  background-color: black;
+  text-align: center;
+  color: greenyellow;
+  font-size: 45px;
+  height: 100vh;
+
+  .message {
+    color: wheat;
+    font-size: 30px;
+  }
+
+  .reset {
+    color: white;
+    font-size: 12px;
+  }
+
+  .board-container {
+    margin: 100px auto;
+    width: 350px;
+    height: 350px;
+    background-color: pink;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+
+    .pointer {
+      cursor: pointer;
+    }
+
+    .disabled {
+      pointer-events: none;
+    }
+  }
+}

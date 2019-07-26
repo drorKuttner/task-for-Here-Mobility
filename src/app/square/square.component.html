@@ -1,0 +1,4 @@
+<div class="root" [ngSwitch]="val" [ngClass]="{win: isWinningSequence}">
+  <mat-icon *ngSwitchCase="squareValueType.X" class="x">clear</mat-icon>
+  <mat-icon *ngSwitchCase="squareValueType.O" class="o">radio_button_unchecked</mat-icon>
+</div>
